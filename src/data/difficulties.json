@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Easy",
+    "speed": 1.0,
+    "maxHealth": 1.0
+  },
+  {
+    "id": 2,
+    "name": "Normal",
+    "speed": 1.5,
+    "maxHealth": 1.5
+  },
+  {
+    "id": 3,
+    "name": "Hard",
+    "speed": 2.0,
+    "maxHealth": 2.0
+  },
+  {
+    "id": 4,
+    "name": "Very Hard",
+    "speed": 2.5,
+    "maxHealth": 2.5
+  },
+  {
+    "id": 5,
+    "name": "Insane",
+    "speed": 3.0,
+    "maxHealth": 3.0
+  }
+]
