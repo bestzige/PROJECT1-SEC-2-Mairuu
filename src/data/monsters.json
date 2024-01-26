@@ -1,1 +1,26 @@
-["Zombie"]
+[
+  {
+    "id": 1,
+    "name": "Goblin",
+    "maxHealth": 100,
+    "attackDamage": 10
+  },
+  {
+    "id": 2,
+    "name": "Orc",
+    "maxHealth": 150,
+    "attackDamage": 15
+  },
+  {
+    "id": 3,
+    "name": "Troll",
+    "maxHealth": 200,
+    "attackDamage": 20
+  },
+  {
+    "id": 4,
+    "name": "Dragon",
+    "maxHealth": 500,
+    "attackDamage": 50
+  }
+]
