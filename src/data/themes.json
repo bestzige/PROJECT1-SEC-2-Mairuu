@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Red",
+    "color": "#ff003a"
+  },
+  {
+    "id": 2,
+    "name": "Purple",
+    "color": "#c77dff"
+  },
+  {
+    "id": 3,
+    "name": "Pink",
+    "color": "#ff5bae"
+  },
+  {
+    "id": 4,
+    "name": "Blue",
+    "color": "#58b1ff"
+  },
+  {
+    "id": 5,
+    "name": "Orange",
+    "color": "#eb8500"
+  },
+  {
+    "id": 6,
+    "name": "Green",
+    "color": "#6ac700"
+  }
+]
