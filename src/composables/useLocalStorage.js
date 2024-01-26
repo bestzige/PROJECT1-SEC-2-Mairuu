@@ -1,9 +1,9 @@
 import { onMounted, ref, watch } from 'vue'
 
 export function useLocalStorage(key, defaultValue) {
-  const state = ref()
+  const state = ref(defaultValue)
 
-  const setValue = value => {
+  const setData = value => {
     state.value = value
   }
 
@@ -25,5 +25,5 @@ export function useLocalStorage(key, defaultValue) {
     )
   })
 
-  return { value: state, setValue }
+  return { data: state, setData }
 }
