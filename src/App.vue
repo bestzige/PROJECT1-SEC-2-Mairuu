@@ -1,24 +1,13 @@
 <script setup>
-  /* Vue */
-  import { ref } from 'vue'
-
   /* Components */
   import BellIcon from '@/components/icons/BellIcon.vue'
   import HomeIcon from '@/components/icons/HomeIcon.vue'
 
   /* Composables */
-  import { useLocalStorage } from '@/composables/useLocalStorage.js'
-  import { usePageTitle } from '@/composables/usePageTitle'
-
-  /* Data */
-  import themes from '@/data/themes.json'
+  import { useTheme } from '@/composables/useTheme.js'
 
   /* Settings */
-  const { data: theme, setData: setTheme } = useLocalStorage('settings.theme', themes[0])
-
-  /* Page Title */
-  const pageTitle = ref('Mairuu Aim')
-  usePageTitle(pageTitle)
+  const { themes, theme, setTheme } = useTheme()
 </script>
 
 <template>
