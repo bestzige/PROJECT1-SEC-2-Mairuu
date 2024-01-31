@@ -5,10 +5,10 @@
 
   /* Composables */
   import { useRouter } from '@/composables/useRouter'
-  import { useTheme } from '@/composables/useTheme.js'
+  import { useSetting } from '@/composables/useSetting.js'
 
   /* Settings */
-  const { themes, theme, setTheme } = useTheme()
+  const { themes, theme, setTheme } = useSetting()
 
   /* Router */
   const { isRoute, push } = useRouter()
@@ -48,3 +48,4 @@
 </template>
 
 <style scoped></style>
+@/composables/useSetting.js
