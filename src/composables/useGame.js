@@ -52,7 +52,12 @@ export function useGame(difficulty) {
   }
 
   const resetGame = () => {
-    /* Assign to นายณัฐพล นิรัตติศัยกุล */
+    Object.assign(game, getDefaultGame())
+    playerManager.resetPlayer()
+    monsterManager.resetMonster()
+    stopPlaytime()
+    stopMonsterHitInterval()
+    resetPlaytime()
   }
 
   const startPlaying = () => {
@@ -81,7 +86,27 @@ export function useGame(difficulty) {
   }
 
   const endGame = (win = false) => {
-    /* Assign to นายณัฐพล นิรัตติศัยกุล */
+    if (isEnding()) return
+
+    game.state = GameState.GAME_OVER
+    stopPlaytime()
+    stopMonsterHitInterval()
+
+    matchHistoryManager.addMatch({
+      win,
+      name: playerManager.player.name,
+      difficulty: difficulty.name,
+      time: playtime.value,
+      score: game.score,
+      hit: game.hit,
+      miss: game.miss,
+      coins: playerManager.player.coins,
+      lastMonster: monsterManager.monster.name,
+      createdAt: new Date().toLocaleString(),
+      endedAt: new Date().toLocaleString(),
+    })
+
+    resetGame()
   }
 
   const randomAddCoins = () => {
