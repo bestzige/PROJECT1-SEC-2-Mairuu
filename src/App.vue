@@ -8,7 +8,15 @@
   import { useSetting } from '@/composables/useSetting.js'
 
   /* Settings */
-  const { themes, theme, setTheme } = useTheme()
+  const { themes, theme, setTheme } = useSetting()
+  /* Router */
+  const { isRoute, push } = useRouter()
+
+  /* Mockup Data for match history page*/
+  import history from '@/data/mockupHistory.json'
+  const rowBg = gameStatus => {
+    return gameStatus === 'win' ? 'text-emerald-400' : 'text-rose-600'
+  }
 </script>
 
 <template>
