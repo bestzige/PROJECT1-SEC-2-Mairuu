@@ -139,7 +139,24 @@ export function useGame(difficulty) {
   }
 
   const playerHitMonster = () => {
-    /* Assign to นายพสิษฐ์ วิญญาณ */
+    if (!isPlaying()) return
+
+    game.hit++
+    game.score += playerManager.player.attackDamage
+
+    defaultHit()
+
+    const isDead = monsterManager.damageMonster(playerManager.player.attackDamage)
+
+    randomAddCoins()
+
+    if (isDead) {
+      const isLastMonster = monsterManager.nextMonster()
+
+      if (isLastMonster) {
+        endGame(true)
+      }
+    }
   }
 
   const buttonClicked = event => {
