@@ -5,6 +5,7 @@ export function useLocalStorage(key, defaultValue) {
 
   const setData = value => {
     state.value = value
+    localStorage.setItem(key, typeof value === 'object' ? JSON.stringify(value) : String(value))
   }
 
   onMounted(() => {
@@ -19,10 +20,7 @@ export function useLocalStorage(key, defaultValue) {
   })
 
   watch(state, newState => {
-    localStorage.setItem(
-      key,
-      typeof newState === 'object' ? JSON.stringify(newState) : String(newState),
-    )
+    setData(newState)
   })
 
   return { data: state, setData }

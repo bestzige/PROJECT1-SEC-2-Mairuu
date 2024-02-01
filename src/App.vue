@@ -4,16 +4,11 @@
   import HomeIcon from '@/components/icons/HomeIcon.vue'
 
   /* Composables */
-  import { useTheme } from '@/composables/useTheme.js'
+  import { useRouter } from '@/composables/useRouter'
+  import { useSetting } from '@/composables/useSetting.js'
 
   /* Settings */
   const { themes, theme, setTheme } = useTheme()
-
-  /* Mockup Data for match history page*/
-  import history from '@/data/mockupHistory.json'
-  const rowBg = gameStatus => {
-    return gameStatus === 'win' ? 'text-emerald-400' : 'text-rose-600'
-  }
 </script>
 
 <template>
@@ -29,16 +24,21 @@
       <hr :style="{ backgroundColor: theme.color }" class="h-1 border-none" />
     </header>
     <main class="flex flex-col justify-center items-center w-full my-4">
-      <section id="themes" class="flex flex-wrap justify-center items-center">
-        <button
-          v-for="t in themes"
-          class="w-10 h-10 cursor-pointer rounded-full justify-center overflow-hidden p-1"
-          :class="theme.id === t.id ? 'border-2 border-gray-500' : ''"
-          @click="setTheme(t)"
-        >
-          <div class="w-full h-full rounded-full" :style="{ backgroundColor: t.color }" />
-        </button>
+      <section v-if="isRoute('home')" id="homePage">
+        <section id="themes" class="flex flex-wrap justify-center items-center">
+          <button
+            v-for="t in themes"
+            class="w-10 h-10 cursor-pointer rounded-full justify-center overflow-hidden p-1"
+            :class="theme.id === t.id ? 'border-2 border-gray-500' : ''"
+            @click="setTheme(t)"
+          >
+            <div class="w-full h-full rounded-full" :style="{ backgroundColor: t.color }" />
+          </button>
+        </section>
       </section>
+      <section v-if="isRoute('game')" id="gamePage"></section>
+      <section v-if="isRoute('results')" id="resultsPage"></section>
+      <section v-if="isRoute('match-history')" id="matchHistoryPage"></section>
     </main>
     <footer class="w-full"></footer>
   </div>
@@ -73,3 +73,4 @@
 </template>
 
 <style scoped></style>
+@/composables/useSetting.js
