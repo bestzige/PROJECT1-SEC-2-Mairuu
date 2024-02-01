@@ -5,8 +5,8 @@
 
   /* Composables */
   import { useRouter } from '@/composables/useRouter'
-  import { useSetting } from '@/composables/useSetting.js'
-  import { matchHistory } from './composables/matchHistory'
+  import { useSetting } from '@/composables/useSetting'
+  import { useMatchHistory } from '@/composables/useMatchHistory'
 
   /* Settings */
   const { themes, theme, setTheme } = useSetting()
@@ -14,8 +14,26 @@
   /* Router */
   const { isRoute, push } = useRouter()
 
-  /* Mockup Data for match history page*/
-  const { mockupHistory, rowBg } = matchHistory()
+  /*history page*/
+  const fontColor = win => {
+    return win ? 'text-emerald-400' : 'text-rose-600'
+  }
+  const WinOrLose = status => {
+    return status ? 'win' : 'lose'
+  }
+  const testWin = {
+    scores: 100,
+    missed: 13,
+    kills: 10,
+    win: true,
+  }
+  const testLose = {
+    scores: 100,
+    missed: 13,
+    kills: 10,
+    win: false,
+  }
+  const { matchHistory, addMatch, removeMatch, clearMatchHistory } = useMatchHistory()
 </script>
 
 <template>
@@ -54,30 +72,50 @@
   <section id="History">
     <div class="flex justify-center"><p class="text-6xl text-teal-400">HISTORY</p></div>
 
-    <div class="grid grid-cols-12 font-semibold text-xl gap-2 p-2">
-      <h3 class="col-span-2">Scores</h3>
-      <h3 class="col-span-2">Missed</h3>
-      <h3 class="col-span-2">Kills</h3>
-      <h3 class="col-span-2">Start</h3>
-      <h3 class="col-span-2">End</h3>
-      <h3 class="col-span-2">Status</h3>
+    <div class="overflow-x-auto">
+      <table
+        class="min-w-full divide-y divide-gray-800 bg-gray-900 text-white shadow-md rounded-lg"
+      >
+        <thead>
+          <tr>
+            <th class="px-4 py-2 text-left">Scores</th>
+            <th class="px-4 py-2 text-left">Missed</th>
+            <th class="px-4 py-2 text-left">Kills</th>
+            <th class="px-4 py-2 text-left">Created At</th>
+            <th class="px-4 py-2 text-left">Ended At</th>
+            <th class="px-4 py-2 text-left">Result</th>
+            <th class="px-4 py-2 text-left"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="match in matchHistory" :key="match.ID" :class="fontColor(match.win)">
+            <td class="px-4 py-2">{{ match.scores }}</td>
+            <td class="px-4 py-2">{{ match.missed }}</td>
+            <td class="px-4 py-2">{{ match.kills }}</td>
+            <td class="px-4 py-2">{{ match.createdAt }}</td>
+            <td class="px-4 py-2">{{ match.endedAt }}</td>
+            <td class="px-4 py-2">{{ WinOrLose(match.win) }}</td>
+            <td class="px-4 py-2">
+              <button @click="removeMatch(match.id)" class="p-2 bg-red-400 text-white rounded">
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-
-    <div
-      class="grid grid-cols-12 gap-2 p-2"
-      v-for="match in mockupHistory"
-      :key="match.ID"
-      :class="rowBg(match.status)"
-    >
-      <p class="col-span-2">{{ match.scores }}</p>
-      <p class="col-span-2">{{ match.missed }}</p>
-      <p class="col-span-2">{{ match.kills }}</p>
-      <p class="col-span-2">{{ match.createAt }}</p>
-      <p class="col-span-2">{{ match.endAt }}</p>
-      <p class="col-span-2">{{ match.status }}</p>
+    <div class="flex justify-around">
+      <button @click="addMatch(testWin)" class="mt-4 p-2 bg-green-800 text-white rounded">
+        Test Add Win
+      </button>
+      <button @click="addMatch(testLose)" class="mt-4 p-2 bg-red-800 text-white rounded">
+        Test Add Lose
+      </button>
+      <button @click="clearMatchHistory()" class="mt-4 p-2 bg-blue-800 text-white rounded">
+        Test Clear
+      </button>
     </div>
   </section>
 </template>
 
 <style scoped></style>
-@/composables/useSetting.js
