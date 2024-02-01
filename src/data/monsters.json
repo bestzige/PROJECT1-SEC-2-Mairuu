@@ -3,24 +3,28 @@
     "id": 1,
     "name": "Goblin",
     "maxHealth": 100,
-    "attackDamage": 10
+    "attackDamage": 10,
+    "rangeCoin": [1, 5]
   },
   {
     "id": 2,
     "name": "Orc",
     "maxHealth": 150,
-    "attackDamage": 15
+    "attackDamage": 15,
+    "rangeCoin": [5, 10]
   },
   {
     "id": 3,
     "name": "Troll",
     "maxHealth": 200,
-    "attackDamage": 20
+    "attackDamage": 20,
+    "rangeCoin": [10, 20]
   },
   {
     "id": 4,
     "name": "Dragon",
     "maxHealth": 500,
-    "attackDamage": 50
+    "attackDamage": 50,
+    "rangeCoin": [20, 50]
   }
 ]
