@@ -6,17 +6,16 @@
   /* Composables */
   import { useRouter } from '@/composables/useRouter'
   import { useSetting } from '@/composables/useSetting.js'
+  import { matchHistory } from './composables/matchHistory'
 
   /* Settings */
   const { themes, theme, setTheme } = useSetting()
+
   /* Router */
   const { isRoute, push } = useRouter()
 
   /* Mockup Data for match history page*/
-  import history from '@/data/mockupHistory.json'
-  const rowBg = gameStatus => {
-    return gameStatus === 'win' ? 'text-emerald-400' : 'text-rose-600'
-  }
+  const { mockupHistory, rowBg } = matchHistory()
 </script>
 
 <template>
@@ -66,7 +65,7 @@
 
     <div
       class="grid grid-cols-12 gap-2 p-2"
-      v-for="match in history"
+      v-for="match in mockupHistory"
       :key="match.ID"
       :class="rowBg(match.status)"
     >
