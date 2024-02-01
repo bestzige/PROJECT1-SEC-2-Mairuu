@@ -16,5 +16,15 @@ export function useSetting() {
     setSound(!sound.value)
   }
 
-  return { sound, theme, cursor, targetSize, setTheme, setCursor, setTargetSize, toggleSound }
+  return {
+    sound,
+    themes,
+    theme,
+    cursor,
+    targetSize,
+    setTheme,
+    setCursor,
+    setTargetSize,
+    toggleSound,
+  }
 }
