@@ -69,7 +69,7 @@
   </div>
 
   <!-- Match History -->
-  <section id="History">
+  <section id="matchHistoryPage">
     <div class="flex justify-center"><p class="text-6xl text-teal-400">HISTORY</p></div>
 
     <div class="overflow-x-auto">
