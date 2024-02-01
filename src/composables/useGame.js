@@ -56,7 +56,13 @@ export function useGame(difficulty) {
   }
 
   const startPlaying = () => {
-    /* Assign to นายณัฐพล นิรัตติศัยกุล */
+    game.state = GameState.PLAYING
+    game.startAt = Date.now()
+    game.countdown = -1
+
+    startPlaytime()
+    startMonsterHitInterval()
+    randomButtonPosition()
   }
 
   const startGame = () => {
