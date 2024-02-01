@@ -119,11 +119,23 @@ export function useGame(difficulty) {
   }
 
   const defaultHit = () => {
-    /* Assign to นายพสิษฐ์ วิญญาณ */
+    if (!isPlaying()) return
+    stopMonsterHitInterval()
+    startMonsterHitInterval()
+    randomButtonPosition()
   }
 
   const monsterHitPlayer = () => {
-    /* Assign to นายพสิษฐ์ วิญญาณ */
+    if (!isPlaying()) return
+    game.miss++
+
+    defaultHit()
+
+    const isDead = playerManager.damagePlayer(monsterManager.monster.attackDamage)
+
+    if (isDead) {
+      endGame()
+    }
   }
 
   const playerHitMonster = () => {
