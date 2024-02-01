@@ -78,6 +78,10 @@ export function useGame(difficulty) {
 
   const defaultHit = () => {
     /* Assign to นายพสิษฐ์ วิญญาณ */
+    if (!isPlaying()) return
+    stopMonsterHitInterval()
+    startMonsterHitInterval()
+    randomButtonPosition()
   }
 
   const monsterHitPlayer = () => {
