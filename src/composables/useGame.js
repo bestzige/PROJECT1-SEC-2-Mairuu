@@ -60,7 +60,18 @@ export function useGame(difficulty) {
   }
 
   const startGame = () => {
-    /* Assign to นายณัฐพล นิรัตติศัยกุล */
+    if (isPlaying()) return
+
+    resetGame()
+
+    const countdownInterval = setInterval(() => {
+      game.countdown--
+
+      if (game.countdown <= 0) {
+        clearInterval(countdownInterval)
+        startPlaying()
+      }
+    }, 1000)
   }
 
   const endGame = (win = false) => {
