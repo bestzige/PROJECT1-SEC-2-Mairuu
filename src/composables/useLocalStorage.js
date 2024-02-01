@@ -1,14 +1,13 @@
-import { onMounted, ref, watch } from 'vue'
+import { onBeforeMount, ref, watch } from 'vue'
 
 export function useLocalStorage(key, defaultValue) {
   const state = ref(defaultValue)
 
   const setData = value => {
     state.value = value
-    localStorage.setItem(key, typeof value === 'object' ? JSON.stringify(value) : String(value))
   }
 
-  onMounted(() => {
+  onBeforeMount(() => {
     const item = localStorage.getItem(key)
 
     try {
@@ -20,7 +19,10 @@ export function useLocalStorage(key, defaultValue) {
   })
 
   watch(state, newState => {
-    setData(newState)
+    localStorage.setItem(
+      key,
+      typeof newState === 'object' ? JSON.stringify(newState) : String(newState),
+    )
   })
 
   return { data: state, setData }

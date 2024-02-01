@@ -1,10 +1,10 @@
 import { reactive } from 'vue'
 
-export function usePlayer(difficulty) {
+export function usePlayer() {
   const getDefaultPlayer = () => {
     return {
       name: 'Guest',
-      health: difficulty.maxHealth,
+      health: 100,
       attackDamage: 10,
       coins: 0,
     }

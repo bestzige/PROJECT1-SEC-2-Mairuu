@@ -7,8 +7,8 @@ export function useInterval(callback, ms = 1000) {
   const start = () => {
     if (intervalId === null) {
       intervalId = setInterval(() => {
+        if (callback) callback()
         counter.value++
-        callback()
       }, ms)
     }
   }
