@@ -34,6 +34,32 @@
     win: false,
   }
   const { matchHistory, addMatch, removeMatch, clearMatchHistory } = useMatchHistory()
+
+  /*Result Page*/
+  import { ref, onMounted } from 'vue'
+  const hits = ref(0)
+  const misses = ref(0)
+  const targets = ref(0)
+  const clicks = ref(0)
+  const totalScore = ref(0)
+
+  const updateGameResult = (hits, misses, targets, clicks, totalScore) => {
+    hits.value = hits
+    misses.value = misses
+    targets.value = targets
+    clicks.value = clicks
+    totalScore.value = totalScore
+  }
+
+  onMounted(() => {
+    const hits = 5
+    const misses = 2
+    const targets = 10
+    const clicks = 7
+    const totalScore = 150
+
+    updateGameResult(hits, misses, targets, clicks, totalScore)
+  })
 </script>
 
 <template>
@@ -114,6 +140,20 @@
       <button @click="clearMatchHistory()" class="mt-4 p-2 bg-blue-800 text-white rounded">
         Test Clear
       </button>
+    </div>
+  </section>
+
+  <!-- Result -->
+  <section v-if="isRoute('results')" id="resultsPage">
+    <div>
+      <h2 class="text-3xl font-semibold text-white">Game Result</h2>
+      <p class="text-white">Hits: {{ hits }}</p>
+      <p class="text-white">Misses: {{ misses }}</p>
+      <p class="text-white">Targets: {{ targets }}</p>
+      <p class="text-white">Clicks: {{ clicks }}</p>
+      <p class="text-white">Total Score: {{ totalScore }}</p>
+      <p class="text-white">Target Efficiency: {{ ((hits / targets) * 100).toFixed(2) }}%</p>
+      <p class="text-white">Click Accuracy: {{ ((hits / clicks) * 100).toFixed(2) }}%</p>
     </div>
   </section>
 </template>
