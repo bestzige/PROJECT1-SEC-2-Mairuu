@@ -52,19 +52,61 @@ export function useGame(difficulty) {
   }
 
   const resetGame = () => {
-    /* Assign to นายณัฐพล นิรัตติศัยกุล */
+    Object.assign(game, getDefaultGame())
+    playerManager.resetPlayer()
+    monsterManager.resetMonster()
+    stopPlaytime()
+    stopMonsterHitInterval()
+    resetPlaytime()
   }
 
   const startPlaying = () => {
-    /* Assign to นายณัฐพล นิรัตติศัยกุล */
+    game.state = GameState.PLAYING
+    game.startAt = Date.now()
+    game.countdown = -1
+
+    startPlaytime()
+    startMonsterHitInterval()
+    randomButtonPosition()
   }
 
   const startGame = () => {
-    /* Assign to นายณัฐพล นิรัตติศัยกุล */
+    if (isPlaying()) return
+
+    resetGame()
+
+    const countdownInterval = setInterval(() => {
+      game.countdown--
+
+      if (game.countdown <= 0) {
+        clearInterval(countdownInterval)
+        startPlaying()
+      }
+    }, 1000)
   }
 
   const endGame = (win = false) => {
-    /* Assign to นายณัฐพล นิรัตติศัยกุล */
+    if (isEnding()) return
+
+    game.state = GameState.GAME_OVER
+    stopPlaytime()
+    stopMonsterHitInterval()
+
+    matchHistoryManager.addMatch({
+      win,
+      name: playerManager.player.name,
+      difficulty: difficulty.name,
+      time: playtime.value,
+      score: game.score,
+      hit: game.hit,
+      miss: game.miss,
+      coins: playerManager.player.coins,
+      lastMonster: monsterManager.monster.name,
+      createdAt: new Date().toLocaleString(),
+      endedAt: new Date().toLocaleString(),
+    })
+
+    resetGame()
   }
 
   const randomAddCoins = () => {
@@ -77,15 +119,44 @@ export function useGame(difficulty) {
   }
 
   const defaultHit = () => {
-    /* Assign to นายพสิษฐ์ วิญญาณ */
+    if (!isPlaying()) return
+    stopMonsterHitInterval()
+    startMonsterHitInterval()
+    randomButtonPosition()
   }
 
   const monsterHitPlayer = () => {
-    /* Assign to นายพสิษฐ์ วิญญาณ */
+    if (!isPlaying()) return
+    game.miss++
+
+    defaultHit()
+
+    const isDead = playerManager.damagePlayer(monsterManager.monster.attackDamage)
+
+    if (isDead) {
+      endGame()
+    }
   }
 
   const playerHitMonster = () => {
-    /* Assign to นายพสิษฐ์ วิญญาณ */
+    if (!isPlaying()) return
+
+    game.hit++
+    game.score += playerManager.player.attackDamage
+
+    defaultHit()
+
+    const isDead = monsterManager.damageMonster(playerManager.player.attackDamage)
+
+    randomAddCoins()
+
+    if (isDead) {
+      const isLastMonster = monsterManager.nextMonster()
+
+      if (isLastMonster) {
+        endGame(true)
+      }
+    }
   }
 
   const buttonClicked = event => {
