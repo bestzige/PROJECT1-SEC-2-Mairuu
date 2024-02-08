@@ -1,6 +1,5 @@
 import { useLocalStorage } from '@/composables/useLocalStorage'
 
-// #TODO: fix history for no related data when game end
 export function useMatchHistory() {
   const {
     data: matchHistory,
