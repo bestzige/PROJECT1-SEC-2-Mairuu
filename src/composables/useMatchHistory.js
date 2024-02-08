@@ -1,12 +1,16 @@
 import { useLocalStorage } from '@/composables/useLocalStorage'
 
 export function useMatchHistory() {
-  const { data: matchHistory, setData: setMatchHistory } = useLocalStorage('match.history', [])
+  const {
+    data: matchHistory,
+    setData: setMatchHistory,
+    reloadData: reloadMatchHistory,
+  } = useLocalStorage('match.history', [])
 
   const addMatch = match => {
     const updatedHistory = [
-      ...matchHistory.value,
       { id: Date.now(), createdAt: new Date().toLocaleString(), ...match },
+      ...matchHistory.value,
     ]
     setMatchHistory(updatedHistory)
   }
@@ -18,7 +22,8 @@ export function useMatchHistory() {
 
   const clearMatchHistory = () => {
     setMatchHistory([])
+    window.location.reload()
   }
 
-  return { matchHistory, addMatch, removeMatch, clearMatchHistory }
+  return { matchHistory, addMatch, removeMatch, clearMatchHistory, reloadMatchHistory }
 }
