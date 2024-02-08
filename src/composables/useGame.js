@@ -3,24 +3,27 @@ import { useMatchHistory } from '@/composables/useMatchHistory'
 import { useMonster } from '@/composables/useMonster'
 import { usePlayer } from '@/composables/usePlayer'
 import { GameState } from '@/data/enums'
-import { onMounted, reactive } from 'vue'
+import { computed, reactive } from 'vue'
 
 export function useGame(difficulty) {
   const getDefaultGame = () => {
     return {
       state: GameState.LOBBY,
-      miss: 0,
-      hit: 0,
-      score: 0,
+      misses: 0,
+      hits: 0,
+      scores: 0,
       countdown: 5,
       button: {
         position: { top: 0, left: 0 },
       },
       startAt: null,
+      isWin: false,
     }
   }
 
   const game = reactive(getDefaultGame())
+
+  const clicks = computed(() => game.hits + game.misses)
 
   const {
     counter: playtime,
@@ -33,7 +36,7 @@ export function useGame(difficulty) {
     difficulty.speed * 1000,
   )
 
-  const playerManager = usePlayer()
+  const playerManager = usePlayer(difficulty.maxHealth || 100)
   const monsterManager = useMonster()
   const matchHistoryManager = useMatchHistory()
 
@@ -42,9 +45,10 @@ export function useGame(difficulty) {
   const isPlaying = () => game.state === GameState.PLAYING
   const isEnding = () => game.state === GameState.ENDING
   const isResults = () => game.state === GameState.RESULTS
+  const isWin = () => game.isWin
 
   const randomButtonPosition = () => {
-    const padding = 10 // in percentage
+    const padding = 15 // in percentage
     const randomTop = Math.floor(Math.random() * (100 - padding * 2) + padding)
     const randomLeft = Math.floor(Math.random() * (100 - padding * 2) + padding)
 
@@ -62,7 +66,7 @@ export function useGame(difficulty) {
 
   const startPlaying = () => {
     game.state = GameState.PLAYING
-    game.startAt = Date.now()
+    game.startAt = new Date().toLocaleString()
     game.countdown = -1
 
     startPlaytime()
@@ -75,6 +79,8 @@ export function useGame(difficulty) {
 
     resetGame()
 
+    game.state = GameState.STARTING
+
     const countdownInterval = setInterval(() => {
       game.countdown--
 
@@ -86,9 +92,8 @@ export function useGame(difficulty) {
   }
 
   const endGame = (win = false) => {
-    if (isEnding()) return
+    game.state = GameState.ENDING
 
-    game.state = GameState.GAME_OVER
     stopPlaytime()
     stopMonsterHitInterval()
 
@@ -97,16 +102,21 @@ export function useGame(difficulty) {
       name: playerManager.player.name,
       difficulty: difficulty.name,
       time: playtime.value,
-      score: game.score,
-      hit: game.hit,
-      miss: game.miss,
+      scores: game.scores,
+      hits: game.hits,
+      misses: game.misses,
+      scores: game.scores,
       coins: playerManager.player.coins,
       lastMonster: monsterManager.monster.name,
-      createdAt: new Date().toLocaleString(),
+      createdAt: game.startAt,
       endedAt: new Date().toLocaleString(),
     })
 
-    resetGame()
+    game.isWin = win
+
+    setTimeout(() => {
+      game.state = GameState.RESULTS
+    }, 1000)
   }
 
   const randomAddCoins = () => {
@@ -127,7 +137,7 @@ export function useGame(difficulty) {
 
   const monsterHitPlayer = () => {
     if (!isPlaying()) return
-    game.miss++
+    game.misses++
 
     defaultHit()
 
@@ -141,8 +151,8 @@ export function useGame(difficulty) {
   const playerHitMonster = () => {
     if (!isPlaying()) return
 
-    game.hit++
-    game.score += playerManager.player.attackDamage
+    game.hits++
+    game.scores += playerManager.player.attackDamage
 
     defaultHit()
 
@@ -160,16 +170,21 @@ export function useGame(difficulty) {
   }
 
   const buttonClicked = event => {
-    /* Assign to นายวัชระ สันทวี */
+    if (!isPlaying()) return
+
+    event.preventDefault()
+    event.stopPropagation()
+
+    playerHitMonster()
   }
 
   const backgroundClicked = event => {
-    /* Assign to นายวัชระ สันทวี */
-  }
+    if (!isPlaying()) return
 
-  onMounted(() => {
-    /* Assign to นายวัชระ สันทวี */
-  })
+    event.preventDefault()
+
+    monsterHitPlayer()
+  }
 
   return {
     game,
@@ -179,8 +194,11 @@ export function useGame(difficulty) {
     isLobby,
     isStarting,
     isPlaying,
-    isEnding,
     isResults,
+    isEnding,
+    isWin,
+    clicks,
+    playtime,
     startGame,
     endGame,
     buttonClicked,

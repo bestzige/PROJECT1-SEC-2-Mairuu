@@ -7,7 +7,9 @@ export function useLocalStorage(key, defaultValue) {
     state.value = value
   }
 
-  onBeforeMount(() => {
+  onBeforeMount(() => reloadData())
+
+  const reloadData = () => {
     const item = localStorage.getItem(key)
 
     try {
@@ -16,7 +18,7 @@ export function useLocalStorage(key, defaultValue) {
     } catch {
       state.value = item
     }
-  })
+  }
 
   watch(state, newState => {
     localStorage.setItem(
@@ -25,5 +27,5 @@ export function useLocalStorage(key, defaultValue) {
     )
   })
 
-  return { data: state, setData }
+  return { data: state, setData, reloadData }
 }

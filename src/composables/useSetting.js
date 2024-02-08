@@ -17,8 +17,9 @@ export function useSetting() {
   }
 
   return {
-    sound,
     themes,
+    cursors,
+    sound,
     theme,
     cursor,
     targetSize,

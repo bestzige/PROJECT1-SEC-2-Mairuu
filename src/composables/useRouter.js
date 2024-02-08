@@ -1,7 +1,7 @@
 import { usePageTitle } from '@/composables/usePageTitle'
 import { SITE_TITLE } from '@/utils/constants'
 import { titleCase } from '@/utils/text'
-import { ref, watchEffect } from 'vue'
+import { ref, watch } from 'vue'
 
 export function useRouter() {
   const { setTitle } = usePageTitle(`Home | ${SITE_TITLE}`)
@@ -11,12 +11,12 @@ export function useRouter() {
     route.value = newRoute
   }
 
-  const isRoute = routeName => route.value === routeName
+  const isRoute = routeName => routeName === route.value
 
   const isInRoutes = routeNames => routeNames.includes(route.value)
 
-  watchEffect(() => {
-    setTitle(`${titleCase(route.value)} | ${SITE_TITLE}`)
+  watch(route, newValue => {
+    setTitle(`${titleCase(newValue)} | ${SITE_TITLE}`)
   })
 
   return { route, push, isRoute, isInRoutes }
