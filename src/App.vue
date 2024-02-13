@@ -22,7 +22,7 @@
   /* Router */
   const { isRoute, push } = useRouter()
 
-  const { matchHistory, removeMatch, clearMatchHistory, reloadMatchHistory } = useMatchHistory()
+  const { matchHistory, clearMatchHistory, reloadMatchHistory } = useMatchHistory()
 
   /* Game */
   const gameService = useGame({
@@ -152,6 +152,34 @@
         </div>
         <div
           v-show="gameService.isPlaying()"
+          class="flex flex-row justify-between w-full gap-4 items-center"
+        >
+          <div class="flex flex-col items-center gap-4">
+            <h2 class="text-3xl text-white">Player</h2>
+            <h2 class="text-3xl text-white">Model: {{ gameService.playerManager.player.model }}</h2>
+            <h2 class="text-3xl text-white">
+              Health: {{ gameService.playerManager.player.health }}
+            </h2>
+            <h2 class="text-3xl text-white">Scores: {{ gameService.game.scores }}</h2>
+            <h2 class="text-3xl text-white">Coins: {{ gameService.playerManager.player.coins }}</h2>
+            <h2 class="text-3xl text-white">Time: {{ gameService.playtime }}</h2>
+          </div>
+          <div class="flex flex-col items-center gap-4">
+            <h2 class="text-3xl text-white">Monster</h2>
+            <h2 class="text-3xl text-white">
+              Model: {{ gameService.monsterManager.monster.model }}
+            </h2>
+            <h2 class="text-3xl text-white">Difficulty: {{ gameService.difficulty.name }}</h2>
+            <h2 class="text-3xl text-white">
+              Monster {{ gameService.monsterManager.monster.name }}
+            </h2>
+            <h2 class="text-3xl text-white">
+              Health: {{ gameService.monsterManager.monster.health }}
+            </h2>
+          </div>
+        </div>
+        <div
+          v-show="gameService.isPlaying()"
           class="flex justify-center bg-dark border-red-500 border-2 relative w-full h-96 select-none text-white"
           @click="gameService.backgroundClicked"
         >
@@ -161,6 +189,7 @@
             :style="{
               top: gameService.game.button.position.top + '%',
               left: gameService.game.button.position.left + '%',
+              // below is for dynamic button size
               // width: user.settings.button.size + 'px',
               // height: user.settings.button.size + 'px',
               width: '50px',
@@ -183,6 +212,12 @@
           <p class="text-white">PlayTime: {{ gameService.playtime }}</p>
           <p class="text-white">Total Score: {{ gameService.game.scores }}</p>
         </div>
+        <button @click="push('home')" class="p-2 bg-red-800 text-white rounded w-full">
+          Change Settings
+        </button>
+        <button @click="playGame" class="mt-4 p-2 bg-green-800 text-white rounded w-full">
+          Play Again
+        </button>
       </section>
 
       <!-- Match History -->

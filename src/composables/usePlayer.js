@@ -7,6 +7,7 @@ export function usePlayer(maxHealth = 100) {
       health: maxHealth,
       attackDamage: 10,
       coins: 0,
+      model: 'idle',
     }
   }
 
@@ -68,6 +69,10 @@ export function usePlayer(maxHealth = 100) {
     return isPlayerDead()
   }
 
+  const setModel = model => {
+    player.model = model
+  }
+
   return {
     player,
     setPlayerName,
@@ -84,5 +89,6 @@ export function usePlayer(maxHealth = 100) {
     isPlayerDead,
     resetPlayer,
     damagePlayer,
+    setModel,
   }
 }
