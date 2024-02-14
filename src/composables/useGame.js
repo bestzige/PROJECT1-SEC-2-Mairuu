@@ -143,6 +143,14 @@ export function useGame(difficulty) {
 
     const isDead = playerManager.damagePlayer(monsterManager.monster.attackDamage)
 
+    playerManager.setModel(isDead ? 'dead' : 'hurt')
+    monsterManager.setModel('attack')
+
+    setTimeout(() => {
+      monsterManager.setModel('idle')
+      playerManager.setModel('idle')
+    }, 500)
+
     if (isDead) {
       endGame()
     }
@@ -158,13 +166,21 @@ export function useGame(difficulty) {
 
     const isDead = monsterManager.damageMonster(playerManager.player.attackDamage)
 
+    monsterManager.setModel(isDead ? 'dead' : 'hurt')
+    playerManager.setModel('attack')
+
+    setTimeout(() => {
+      monsterManager.setModel('idle')
+      playerManager.setModel('idle')
+    }, 500)
+
     randomAddCoins()
 
     if (isDead) {
       const isLastMonster = monsterManager.nextMonster()
 
       if (isLastMonster) {
-        endGame(true)
+        endGame()
       }
     }
   }
@@ -203,5 +219,6 @@ export function useGame(difficulty) {
     endGame,
     buttonClicked,
     backgroundClicked,
+    difficulty,
   }
 }

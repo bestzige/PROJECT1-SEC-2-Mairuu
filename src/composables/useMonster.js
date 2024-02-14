@@ -6,7 +6,7 @@ export function useMonster() {
 
   const getDefaultMonster = () => {
     const defaultMonster = monsters[0]
-    return { ...defaultMonster, health: defaultMonster.maxHealth }
+    return { ...defaultMonster, health: defaultMonster.maxHealth, model: 'idle' }
   }
 
   const monster = reactive(getDefaultMonster())
@@ -34,5 +34,17 @@ export function useMonster() {
     return monsterIndex === monsters.length - 1 // Return true if this is the last monster
   }
 
-  return { monster, getMonsterById, resetMonster, isMonsterDead, damageMonster, nextMonster }
+  const setModel = model => {
+    monster.model = model
+  }
+
+  return {
+    monster,
+    getMonsterById,
+    resetMonster,
+    isMonsterDead,
+    damageMonster,
+    nextMonster,
+    setModel,
+  }
 }
