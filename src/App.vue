@@ -28,7 +28,7 @@
   const gameService = useGame({
     id: 1,
     name: 'Easy',
-    speed: 1.0,
+    speed: 3.0,
     maxHealth: 100,
   })
 
@@ -155,32 +155,36 @@
           class="flex flex-row justify-between w-full gap-4 items-center"
         >
           <div class="flex flex-col items-center gap-4">
-            <h2 class="text-3xl text-white">Player</h2>
-            <h2 class="text-3xl text-white">Model: {{ gameService.playerManager.player.model }}</h2>
-            <h2 class="text-3xl text-white">
+            <h2 class="text-2xl text-white">Player</h2>
+            <h2 class="text-2xl text-white">Model: {{ gameService.playerManager.player.model }}</h2>
+            <h2 class="text-2xl text-white">
               Health: {{ gameService.playerManager.player.health }}
             </h2>
-            <h2 class="text-3xl text-white">Scores: {{ gameService.game.scores }}</h2>
-            <h2 class="text-3xl text-white">Coins: {{ gameService.playerManager.player.coins }}</h2>
-            <h2 class="text-3xl text-white">Time: {{ gameService.playtime }}</h2>
+            <h2 class="text-2xl text-white">Scores: {{ gameService.game.scores }}</h2>
+            <h2 class="text-2xl text-white">Coins: {{ gameService.playerManager.player.coins }}</h2>
+            <h2 class="text-2xl text-white">Time: {{ gameService.playtime }}</h2>
           </div>
+          
+          <img :src="`/images/characters/knight-1/${gameService.playerManager.player.model}.gif`" class="w-72 h-72" />
+          <img :src="`/images/characters/${gameService.monsterManager.monster.name.toLowerCase()}/${gameService.monsterManager.monster.model}.gif`" class="w-72 h-72" />
+          
           <div class="flex flex-col items-center gap-4">
-            <h2 class="text-3xl text-white">Monster</h2>
-            <h2 class="text-3xl text-white">
+            <h2 class="text-2xl text-white">Monster</h2>
+            <h2 class="text-2xl text-white">
               Model: {{ gameService.monsterManager.monster.model }}
             </h2>
-            <h2 class="text-3xl text-white">Difficulty: {{ gameService.difficulty.name }}</h2>
-            <h2 class="text-3xl text-white">
+            <h2 class="text-2xl text-white">Difficulty: {{ gameService.difficulty.name }}</h2>
+            <h2 class="text-2xl text-white">
               Monster {{ gameService.monsterManager.monster.name }}
             </h2>
-            <h2 class="text-3xl text-white">
+            <h2 class="text-2xl text-white">
               Health: {{ gameService.monsterManager.monster.health }}
             </h2>
           </div>
         </div>
         <div
           v-show="gameService.isPlaying()"
-          class="flex justify-center bg-dark border-red-500 border-2 relative w-full h-96 select-none text-white"
+          class="flex justify-center bg-dark border-red-500 border-2 relative w-full h-72 select-none text-white"
           @click="gameService.backgroundClicked"
         >
           <button
