@@ -149,7 +149,7 @@ export function useGame(difficulty) {
     setTimeout(() => {
       monsterManager.setModel('idle')
       playerManager.setModel('idle')
-    }, 500)
+    }, 1000)
 
     if (isDead) {
       endGame()
@@ -172,7 +172,7 @@ export function useGame(difficulty) {
     setTimeout(() => {
       monsterManager.setModel('idle')
       playerManager.setModel('idle')
-    }, 500)
+    }, 1000)
 
     randomAddCoins()
 
