@@ -48,9 +48,9 @@ export function useGame(difficulty) {
   const isWin = () => game.isWin
 
   const randomButtonPosition = () => {
-    const padding = 15 // in percentage
-    const randomTop = Math.floor(Math.random() * (100 - padding * 2) + padding)
-    const randomLeft = Math.floor(Math.random() * (100 - padding * 2) + padding)
+    const padding = 15 // padding from the edge of the screen
+    const randomTop = Math.floor(Math.random() * (100 - padding * 2) + padding) // random number between padding(15) and 85
+    const randomLeft = Math.floor(Math.random() * (100 - padding * 2) + padding) // random number between padding(15) and 85
 
     game.button.position = { top: randomTop, left: randomLeft }
   }
@@ -180,7 +180,7 @@ export function useGame(difficulty) {
       const isLastMonster = monsterManager.nextMonster()
 
       if (isLastMonster) {
-        endGame()
+        endGame(true)
       }
     }
   }
