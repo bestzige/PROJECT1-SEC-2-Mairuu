@@ -180,7 +180,7 @@ export function useGame(difficulty) {
       const isLastMonster = monsterManager.nextMonster()
 
       if (isLastMonster) {
-        endGame()
+        endGame(true)
       }
     }
   }
