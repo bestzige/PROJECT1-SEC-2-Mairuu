@@ -28,7 +28,7 @@
   const gameService = useGame({
     id: 1,
     name: 'Easy',
-    speed: 1.0,
+    speed: 5.0,
     maxHealth: 100,
   })
 
