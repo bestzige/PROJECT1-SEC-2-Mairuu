@@ -29,7 +29,6 @@
     id: 1,
     name: 'Easy',
     speed: 3.0,
-    speed: 5.0,
     maxHealth: 100,
   })
 
@@ -165,10 +164,18 @@
             <h2 class="text-2xl text-white">Coins: {{ gameService.playerManager.player.coins }}</h2>
             <h2 class="text-2xl text-white">Time: {{ gameService.playtime }}</h2>
           </div>
-          
-          <img :src="`/images/characters/knight-1/${gameService.playerManager.player.model}.gif`" class="w-72 h-72" />
-          <img :src="`/images/characters/${gameService.monsterManager.monster.name.toLowerCase()}/${gameService.monsterManager.monster.model}.gif`" class="w-72 h-72" />
-          
+
+          <img
+            :src="`/images/characters/knight-1/${gameService.playerManager.player.model}.gif`"
+            class="w-72 h-72"
+          />
+          <img
+            :src="`/images/characters/${gameService.monsterManager.monster.name.toLowerCase()}/${
+              gameService.monsterManager.monster.model
+            }.gif`"
+            class="w-72 h-72"
+          />
+
           <div class="flex flex-col items-center gap-4">
             <h2 class="text-2xl text-white">Monster</h2>
             <h2 class="text-2xl text-white">
