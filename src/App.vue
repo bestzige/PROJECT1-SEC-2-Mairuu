@@ -33,8 +33,8 @@
   })
 
   const settingClass = {
-    label: 'flex w-2/6 bg-gray-500 rounded-none rounded-l-lg p-4 justify-center items-center',
-    input: 'flex w-4/6 bg-gray-50 rounded-none rounded-r-lg p-4 justify-center items-center',
+    label: 'flex w-2/6 bg-white rounded-none rounded-l-lg p-4 justify-center items-center',
+    input: 'flex w-4/6 bg-gray-600 rounded-none rounded-r-lg p-4 justify-center items-center',
   }
 
   const playGame = () => {
@@ -49,7 +49,7 @@
 </script>
 
 <template>
-  <div id="container" class="flex flex-col items-center w-full min-h-screen">
+  <div id="container" class="flex flex-col items-center w-full max-h-screen h-screen">
     <header class="w-full">
       <div class="flex flex-row justify-between w-full p-4 bg-black">
         <div class="flex flex-row items-center gap-4 cursor-pointer" @click="push('home')">
@@ -59,13 +59,13 @@
           </h1>
         </div>
         <div class="flex flex-row justify-between items-center gap-4">
-          <BellIcon class="w-5 h-5 text-gray-500 cursor-pointer" />
-          <HomeIcon class="w-5 h-5 text-gray-500 cursor-pointer" />
+          <!-- <BellIcon class="w-5 h-5 text-gray-500 cursor-pointer" /> -->
+          <HomeIcon class="w-5 h-5 text-gray-500 cursor-pointer" @click="push('home')" />
         </div>
       </div>
       <hr :style="{ backgroundColor: theme.color }" class="h-1 border-none" />
     </header>
-    <main class="flex flex-col justify-center items-center w-full my-4">
+    <main class="flex flex-col justify-center items-center w-full h-full my-4 px-2">
       <!-- Home -->
       <section v-if="isRoute('home')" id="homePage">
         <section id="header-title" class="flex flex-col items-center w-full gap-2">
@@ -138,70 +138,87 @@
 
       <!-- Game -->
       <section
-        v-if="isRoute('game')"
+        v-if="!gameService.isResults() && isRoute('game')"
         id="gamePage"
         :style="{ cursor: `url('/images/cursors/${cursor}.svg'), auto !important` }"
-        class="w-full flex flex-col items-center gap-4"
+        class="w-full flex gap-4 justify-center h-full"
       >
-        <h1 v-show="gameService.game.countdown > 0" class="text-3xl text-white">
+        <h1
+          v-show="gameService.game.countdown > 0"
+          class="flex text-5xl text-white justify-center items-center"
+        >
           Starting in {{ gameService.game.countdown }} seconds
         </h1>
         <div v-show="gameService.isEnding()" class="flex justify-center items-center flex-col">
-          <h1 class="text-3xl text-white">
+          <h1 class="text-5xl text-white">
             {{ gameService.isWin() ? 'Victory!' : 'Game Over' }}
           </h1>
-          <h3 class="text-white">You {{ gameService.isWin() ? 'Win' : 'Lose' }} the game</h3>
+          <h3 class="text-white text-2xl">
+            You {{ gameService.isWin() ? 'Win' : 'Lose' }} the game
+          </h3>
         </div>
+        <div v-show="gameService.isPlaying()" class="flex flex-col w-6/12 gap-4">
+          <div class="flex flex-row w-full gap-4 monitoring rounded-lg">
+            <div class="flex flex-col w-6/12 gap-4">
+              <div class="flex flex-col justify-center text-center">
+                <img
+                  :src="`/images/characters/knight-1/${gameService.playerManager.player.model}.gif`"
+                  class="w-72 h-72"
+                />
 
-        <div
-          v-show="gameService.isPlaying()"
-          class="flex flex-row justify-between w-full gap-4 items-center"
-        >
-          <div class="flex flex-col items-center gap-4">
-            <h2 class="text-2xl text-white">Player</h2>
-            <h2 class="text-2xl text-white">Model: {{ gameService.playerManager.player.model }}</h2>
-            <h2 class="text-2xl text-white">
-              Health: {{ gameService.playerManager.player.health }}
-            </h2>
-            <h2 class="text-2xl text-white">Scores: {{ gameService.game.scores }}</h2>
-            <h2 class="text-2xl text-white">Coins: {{ gameService.playerManager.player.coins }}</h2>
-            <h2 class="text-2xl text-white">Time: {{ gameService.playtime }}</h2>
+                <h2 class="text-2xl text-white">Player</h2>
+                <!-- <h2 class="text-2xl text-white">Model: {{ gameService.playerManager.player.model }}</h2> -->
+                <h2 class="text-2xl text-white">
+                  Health: {{ gameService.playerManager.player.health }}
+                </h2>
+                <!-- <h2 class="text-2xl text-white">Scores: {{ gameService.game.scores }}</h2> -->
+                <!-- <h2 class="text-2xl text-white">Coins: {{ gameService.playerManager.player.coins }}</h2> -->
+                <!-- <h2 class="text-2xl text-white">Time: {{ gameService.playtime }}</h2> -->
+              </div>
+            </div>
+            <div class="flex flex-col w-6/12 gap-4">
+              <div class="flex flex-col justify-center text-center">
+                <img
+                  :src="`/images/characters/${gameService.monsterManager.monster.name.toLowerCase()}/${
+                    gameService.monsterManager.monster.model
+                  }.gif`"
+                  class="w-72 h-72"
+                />
+
+                <!-- <h2 class="text-2xl text-white">Monster</h2> -->
+                <!-- <h2 class="text-2xl text-white">
+                Model: {{ gameService.monsterManager.monster.model }}
+              </h2> -->
+                <!-- <h2 class="text-2xl text-white">Difficulty: {{ gameService.difficulty.name }}</h2> -->
+                <h2 class="text-2xl text-white">
+                  Monster {{ gameService.monsterManager.monster.name }}
+                </h2>
+                <h2 class="text-2xl text-white">
+                  Health: {{ gameService.monsterManager.monster.health }}
+                </h2>
+              </div>
+            </div>
           </div>
 
-          <img
-            :src="`/images/characters/knight-1/${gameService.playerManager.player.model}.gif`"
-            class="w-72 h-72"
-          />
-          <img
-            :src="`/images/characters/${gameService.monsterManager.monster.name.toLowerCase()}/${
-              gameService.monsterManager.monster.model
-            }.gif`"
-            class="w-72 h-72"
-          />
-
-          <div class="flex flex-col items-center gap-4">
-            <h2 class="text-2xl text-white">Monster</h2>
-            <h2 class="text-2xl text-white">
-              Model: {{ gameService.monsterManager.monster.model }}
-            </h2>
-            <h2 class="text-2xl text-white">Difficulty: {{ gameService.difficulty.name }}</h2>
-            <h2 class="text-2xl text-white">
-              Monster {{ gameService.monsterManager.monster.name }}
-            </h2>
-            <h2 class="text-2xl text-white">
-              Health: {{ gameService.monsterManager.monster.health }}
-            </h2>
+          <div
+            class="flex flex-col justify-center items-center border-none rounded-lg w-full h-full gap-4 bg-slate-300"
+          >
+            <h1 class="text-3xl">พื้นที่โฆษณา</h1>
           </div>
         </div>
         <div
           v-show="gameService.isPlaying()"
-          class="flex justify-center bg-dark border-red-500 border-2 relative w-full h-72 select-none text-white"
+          class="flex justify-center bg-dark rounded-lg border-none relative w-full h-full select-none text-white overflow-hidden z-20"
           @click="gameService.backgroundClicked"
-          style="background-color: rgba(255, 255, 255 , 0.25)"
+          style="background-color: rgba(0, 0, 0, 0.9)"
         >
+          <!-- <img
+            :src="`/images/characters/${gameService.monsterManager.monster.name.toLowerCase()}/idle.gif`"
+            class="w-96 h-96 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-70 z-10"
+          /> -->
           <button
             @click="gameService.buttonClicked"
-            class="absolute rounded-full"
+            class="absolute rounded-full z-50"
             :style="{
               top: gameService.game.button.position.top + '%',
               left: gameService.game.button.position.left + '%',
@@ -218,9 +235,13 @@
       </section>
 
       <!-- Result -->
-      <section v-if="gameService.isResults() && isRoute('game')" id="resultsPage">
-        <div>
-          <h2 class="text-3xl font-semibold text-white">Game Result</h2>
+      <section
+        v-if="gameService.isResults() && isRoute('game')"
+        id="resultsPage"
+        class="flex flex-col gap-2 items-center justify-center"
+      >
+        <div class="text-2xl">
+          <h2 class="text-5xl font-semibold text-white">Game Result</h2>
           <p class="text-white">Hits: {{ gameService.game.hits }}</p>
           <p class="text-white">Misses: {{ gameService.game.misses }}</p>
           <p class="text-white">Clicks: {{ gameService.clicks }}</p>
@@ -228,10 +249,10 @@
           <p class="text-white">PlayTime: {{ gameService.playtime }}</p>
           <p class="text-white">Total Score: {{ gameService.game.scores }}</p>
         </div>
-        <button @click="push('home')" class="p-2 bg-red-800 text-white rounded w-full">
+        <button @click="push('home')" class="p-4 bg-red-800 text-white rounded w-full">
           Change Settings
         </button>
-        <button @click="playGame" class="mt-4 p-2 bg-green-800 text-white rounded w-full">
+        <button @click="playGame" class="mt-4 p-4 bg-green-800 text-white rounded w-full">
           Play Again
         </button>
       </section>
@@ -246,7 +267,7 @@
             </h1>
           </div>
         </section>
-        <div class="overflow-x-auto my-4">
+        <div class="overflow-x-auto my-4 max-h-96">
           <table
             class="min-w-full divide-y divide-gray-800 bg-gray-900 text-white shadow-md rounded-lg"
           >
@@ -260,7 +281,7 @@
                 <th class="px-4 py-2">Date</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="overflow-y-scroll h-96">
               <tr
                 v-for="match in matchHistory"
                 :key="match.id"
