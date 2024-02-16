@@ -29,7 +29,6 @@
     id: 1,
     name: 'Easy',
     speed: 3.0,
-    speed: 5.0,
     maxHealth: 100,
   })
 

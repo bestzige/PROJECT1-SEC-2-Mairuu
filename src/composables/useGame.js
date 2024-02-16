@@ -141,18 +141,20 @@ export function useGame(difficulty) {
 
     defaultHit()
 
-    const isDead = playerManager.damagePlayer(monsterManager.monster.attackDamage)
+    const isPlayerDead = playerManager.damagePlayer(monsterManager.monster.attackDamage)
 
-    playerManager.setModel(isDead ? 'dead' : 'hurt')
+    playerManager.setModel(isPlayerDead ? 'dead' : 'hurt')
     monsterManager.setModel('attack')
 
     setTimeout(() => {
       monsterManager.setModel('idle')
-      playerManager.setModel('idle')
+      if (!isPlayerDead) playerManager.setModel('idle')
     }, 1000)
 
-    if (isDead) {
-      endGame()
+    if (isPlayerDead) {
+      setTimeout(() => {
+        endGame()
+      }, 1000)
     }
   }
 
@@ -164,29 +166,31 @@ export function useGame(difficulty) {
 
     defaultHit()
 
-    const isDead = monsterManager.damageMonster(playerManager.player.attackDamage)
+    const isMonsterDead = monsterManager.damageMonster(playerManager.player.attackDamage)
 
-    monsterManager.setModel(isDead ? 'dead' : 'hurt')
+    monsterManager.setModel(isMonsterDead ? 'dead' : 'hurt')
     playerManager.setModel('attack')
 
     setTimeout(() => {
-      monsterManager.setModel('idle')
+      if (!isMonsterDead) monsterManager.setModel('idle')
       playerManager.setModel('idle')
     }, 1000)
 
     randomAddCoins()
 
-    if (isDead) {
+    if (isMonsterDead) {
       const isLastMonster = monsterManager.nextMonster()
 
       if (isLastMonster) {
-        endGame(true)
+        setTimeout(() => {
+          endGame(true)
+        }, 1000)
       }
     }
   }
 
   const buttonClicked = event => {
-    if (!isPlaying()) return
+    if (!isPlaying() || monsterManager.isMonsterDead() || playerManager.isPlayerDead()) return
 
     event.preventDefault()
     event.stopPropagation()
@@ -195,7 +199,7 @@ export function useGame(difficulty) {
   }
 
   const backgroundClicked = event => {
-    if (!isPlaying()) return
+    if (!isPlaying() || monsterManager.isMonsterDead() || playerManager.isPlayerDead()) return
 
     event.preventDefault()
 
