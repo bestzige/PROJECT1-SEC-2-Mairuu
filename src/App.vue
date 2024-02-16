@@ -146,10 +146,13 @@
         <h1 v-show="gameService.game.countdown > 0" class="text-3xl text-white">
           Starting in {{ gameService.game.countdown }} seconds
         </h1>
-        <div v-show="gameService.isEnding()">
-          <h1 class="text-3xl text-white">Game Over</h1>
+        <div v-show="gameService.isEnding()" class="flex justify-center items-center flex-col">
+          <h1 class="text-3xl text-white">
+            {{ gameService.isWin() ? 'Victory!' : 'Game Over' }}
+          </h1>
           <h3 class="text-white">You {{ gameService.isWin() ? 'Win' : 'Lose' }} the game</h3>
         </div>
+
         <div
           v-show="gameService.isPlaying()"
           class="flex flex-row justify-between w-full gap-4 items-center"
@@ -194,6 +197,7 @@
           v-show="gameService.isPlaying()"
           class="flex justify-center bg-dark border-red-500 border-2 relative w-full h-72 select-none text-white"
           @click="gameService.backgroundClicked"
+          style="background-color: rgba(255, 255, 255 , 0.25)"
         >
           <button
             @click="gameService.buttonClicked"
