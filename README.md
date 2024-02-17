@@ -41,7 +41,7 @@
 
 [PresentationFeatureGame](https://drive.google.com/file/d/1IMtLW2KtYJI6USXcsdsJZx_RerqxtEsY/view)
 
-## Reference:
+## References:
 
 - AIMLAB (https://cute-creponne-06f858.netlify.app/) : Gameplay
 - Game A B C (https://fantastic-tiramisu-2c3d60.netlify.app/#fullscreen) : Gameplay
