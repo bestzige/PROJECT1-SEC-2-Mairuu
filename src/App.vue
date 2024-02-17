@@ -191,7 +191,7 @@
               </h2> -->
                 <!-- <h2 class="text-2xl text-white">Difficulty: {{ gameService.difficulty.name }}</h2> -->
                 <h2 class="text-2xl text-white">
-                  Monster {{ gameService.monsterManager.monster.name }}
+                  {{ gameService.monsterManager.monster.name }}
                 </h2>
                 <h2 class="text-2xl text-white">
                   Health: {{ gameService.monsterManager.monster.health }}
@@ -210,7 +210,7 @@
           v-show="gameService.isPlaying()"
           class="flex justify-center bg-dark rounded-lg border-none relative w-full h-full select-none text-white overflow-hidden z-20"
           @click="gameService.backgroundClicked"
-          style="background-color: rgba(0, 0, 0, 0.9)"
+          style="background-color: rgba(0, 0, 0, 0.8)"
         >
           <!-- <img
             :src="`/images/characters/${gameService.monsterManager.monster.name.toLowerCase()}/idle.gif`"
