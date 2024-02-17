@@ -18,7 +18,7 @@
    - Play again : กดเพื่อเล่นอีกครั้ง
   
 3. **Match history**
-   - Match history lists : แสดงประวัติการเล่น
+   - Match history list : แสดงประวัติการเล่น
    - Reset history : ลบประวัติการเล่นทั้งหมด
 
 *Setting และ Match history จะถูกเก็บลงใน LocalStorage*
