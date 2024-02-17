@@ -39,7 +39,7 @@
 
 ## Video demo features:
 
-![](docs/prototypes/v1/home.png)
+[PresentationFeatureGame](https://drive.google.com/file/d/1IMtLW2KtYJI6USXcsdsJZx_RerqxtEsY/view)
 
 ## Reference:
 
