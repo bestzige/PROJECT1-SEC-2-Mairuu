@@ -2,9 +2,22 @@
 
 ## Member List:
 
-- 65130500073 Watchara Santawee (mail: watchara.sant@kmutt.ac.th) 40%
-- 65130500105 Natthaphol Nirattsaikul (mail: natthaphol.nira@kmutt.ac.th) 32%
-- 65130500124 Pasit  Winyan (mail: pasit.winy@kmutt.ac.th) 28%
+| รหัสนักศึกษา | ชื่อ - นามสกุล       | อีเมล                        | สัดส่วนเปอร์เซ็นต์การทำงาน |
+|-----------------|----------------------|-------------------------------|-------------|
+| 65130500073    | Watchara Santawee    | watchara.sant@kmutt.ac.th    | 40%         |
+| 65130500105    | Natthaphol Nirattsaikul | natthaphol.nira@kmutt.ac.th | 32%         |
+| 65130500124    | Pasit Winyan         | pasit.winy@kmutt.ac.th        | 28%         |
+
+## รายละเอียดงานแต่ละส่วน
+1. **Watchara Santawee**
+   - ประเมินโครงสร้างโค้ดและกระจายฟังก์ชัน และออกแบบหน้าตาส่วนของ Home และ Game
+
+2. **Natthaphol Nirattsaikul**
+   - จัดทำ requirment สำหรับการทำงานของระบบ และออกแบบหน้าตาส่วนของ Match History
+
+3. **Pasit Winyan**
+   - ออกแบบ UI ภาพรวมหน้าตาของเว็บแอพพลิเคชั่น และส่วน Result
+
 
 ## Features List:
 
