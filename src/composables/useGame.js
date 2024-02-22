@@ -102,7 +102,6 @@ export function useGame(difficulty) {
       name: playerManager.player.name,
       difficulty: difficulty.name,
       time: playtime.value,
-      scores: game.scores,
       hits: game.hits,
       misses: game.misses,
       scores: game.scores,
