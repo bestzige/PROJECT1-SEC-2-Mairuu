@@ -162,7 +162,7 @@
             <div class="flex flex-col w-6/12 gap-4">
               <div class="flex flex-col justify-center text-center">
                 <img
-                  :src="`/images/characters/magician/${gameService.playerManager.player.model}.gif`"
+                  :src="`/images/characters/samurai/${gameService.playerManager.player.model}.gif`"
                   class="w-72 h-72"
                 />
 
