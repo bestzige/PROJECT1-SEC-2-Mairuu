@@ -118,6 +118,45 @@
                 </div>
               </li>
             </ul>
+            <!-- For test characters -->
+            <ul id="character" class="flex w-full m-2">
+              <li :class="settingClass.label">Characters Test</li>
+              <li :class="settingClass.input">
+                <div class="flex w-full m-2 text-white justify-center items-center">
+                  <input
+                    type="radio"
+                    id="knightCharacter"
+                    name="character"
+                    value="knight"
+                    v-model="character"
+                    @change="setCharacter('knight')"
+                  />
+                  <label for="knightCharacter" class="mr-2 cursor-pointer">Knight</label>
+
+                  <input
+                    type="radio"
+                    id="magicianCharacter"
+                    name="character"
+                    value="magician"
+                    v-model="character"
+                    @change="setCharacter('magician')"
+                  />
+                  <label for="magicianCharacter" class="mr-2 cursor-pointer">Magician</label>
+
+                  <input
+                    type="radio"
+                    id="samuraiCharacter"
+                    name="character"
+                    value="samurai"
+                    v-model="character"
+                    @change="setCharacter('samurai')"
+                  />
+                  <label for="samuraiCharacter" class="mr-2 cursor-pointer">Samurai</label>
+                </div>
+              </li>
+            </ul>
+            <!-- For test characters -->
+
           </div>
         </section>
         <section id="game-start" class="flex flex-col items-center w-full p-4 gap-4">
@@ -162,7 +201,7 @@
             <div class="flex flex-col w-6/12 gap-4">
               <div class="flex flex-col justify-center text-center">
                 <img
-                  :src="`/images/characters/samurai/${gameService.playerManager.player.model}.gif`"
+                  :src="`/images/characters/${character}/${gameService.playerManager.player.model}.gif`"
                   class="w-72 h-72"
                 />
 
