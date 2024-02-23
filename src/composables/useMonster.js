@@ -19,18 +19,15 @@ export function useMonster() {
 
   const damageMonster = damage => {
     monster.health -= damage
-
     return isMonsterDead()
   }
 
   const nextMonster = () => {
     const monsterIndex = monsters.findIndex(m => m.id === monster.id)
     const nextMonster = monsters[monsterIndex + 1]
-
     if (nextMonster) {
       Object.assign(monster, { ...nextMonster, health: nextMonster.maxHealth })
     }
-
     return monsterIndex === monsters.length - 1 // Return true if this is the last monster
   }
 
