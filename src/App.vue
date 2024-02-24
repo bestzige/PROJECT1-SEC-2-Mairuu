@@ -122,7 +122,7 @@
             <ul id="character" class="flex w-full m-2">
               <li :class="settingClass.label">Characters Test</li>
               <li :class="settingClass.input">
-                <div class="flex w-full m-2 text-white justify-center items-center">
+                <div class="flex w-full m-2 text-white justify-center items-center mx-5">
                   <input
                     type="radio"
                     id="knightCharacter"
@@ -130,8 +130,9 @@
                     value="knight"
                     v-model="character"
                     @change="setCharacter('knight')"
+                    class="ml-1"
                   />
-                  <label for="knightCharacter" class="mr-2 cursor-pointer">Knight</label>
+                  <label for="knightCharacter" class="mx-2 mr-2 cursor-pointer">Knight</label>
 
                   <input
                     type="radio"
@@ -140,8 +141,9 @@
                     value="magician"
                     v-model="character"
                     @change="setCharacter('magician')"
+                    class="ml-1"
                   />
-                  <label for="magicianCharacter" class="mr-2 cursor-pointer">Magician</label>
+                  <label for="magicianCharacter" class="mx-2 mr-2 cursor-pointer">Magician</label>
 
                   <input
                     type="radio"
@@ -150,13 +152,13 @@
                     value="samurai"
                     v-model="character"
                     @change="setCharacter('samurai')"
+                    class="ml-1"
                   />
-                  <label for="samuraiCharacter" class="mr-2 cursor-pointer">Samurai</label>
+                  <label for="samuraiCharacter" class="mx-2 mr-2 cursor-pointer">Samurai</label>
                 </div>
               </li>
             </ul>
             <!-- For test characters -->
-
           </div>
         </section>
         <section id="game-start" class="flex flex-col items-center w-full p-4 gap-4">
