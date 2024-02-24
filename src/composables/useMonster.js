@@ -5,7 +5,7 @@ export function useMonster() {
   const getMonsterById = id => monsters.find(m => m.id === id)
 
   const getDefaultMonster = () => {
-    const defaultMonster = monsters[0]
+    const defaultMonster = monsters[1]
     return { ...defaultMonster, health: defaultMonster.maxHealth, model: 'idle' }
   }
 

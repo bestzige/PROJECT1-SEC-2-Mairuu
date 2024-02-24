@@ -5,5 +5,12 @@
     "maxHealth": 100,
     "attackDamage": 10,
     "rangeCoin": [1, 5]
+  },
+  {
+    "id": 2,
+    "name": "Spiritfire",
+    "maxHealth": 100,
+    "attackDamage": 10,
+    "rangeCoin": [1, 5]
   }
 ]
